@@ -1,15 +1,44 @@
-# React + TypeScript + Vite
+# Nova
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+An **infinite canvas application** built with React, TypeScript, and Vite. A zoomable, pannable workspace for visual organization and note-taking.
 
-Currently, two official plugins are available:
+## Features
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) (or [oxc](https://oxc.rs) when used in [rolldown-vite](https://vite.dev/guide/rolldown)) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+- **Infinite Canvas**: Unlimited vertical workspace with a dotted grid background
+- **Pan & Zoom Controls**: 
+  - Click and drag to pan vertically
+  - Ctrl + scroll to zoom (0.2x to 3x)
+  - Vertical limits: -2000px upward
+- **Interactive Grid**: Visual dotted grid that transforms with pan/zoom operations
+- **Dynamic Cursor**: Changes between "grab" and "grabbing" during interaction
+- **Collapsible Sidebar**: Toggleable sidebar for navigation and controls
 
-## React Compiler
+## Tech Stack
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+- **React 19** with TypeScript
+- **Vite** for fast development and building  
+- **Tailwind CSS** for styling
+- **Lucide React** for icons
+
+## Data Structure
+
+The application uses TypeScript types for canvas elements:
+
+- `Grid`: Container with ID, name, and cards array
+- `CardData`: Individual cards with position (x, y), size (width, height), and content
+
+## Getting Started
+
+```bash
+# Install dependencies
+npm install
+
+# Run development server
+npm run dev
+
+# Build for production
+npm run build
+```
 
 ## Expanding the ESLint configuration
 
