@@ -40,6 +40,23 @@ body {
   background: var(--color-sidebar-bg);
   border-color: var(--color-border-soft);
 }
+.sidebar-white {
+  background: var(--color-sidebar-bg);
+  border-color: whitesmoke;
+}
+
+.panel {
+  background: var(--color-panel-bg);
+}
+
+.panel-soft {
+  border-color: var(--color-border-soft);
+}
+
+.panel-hover:hover {
+  background: var(--color-hover-bg);
+  border-color: whitesmoke;
+}
 
 .grid-dot {
   background: var(--color-grid-dot);
@@ -51,4 +68,14 @@ body {
   font-optical-sizing: auto;
   font-weight: 400;
   font-style: normal;
+}
+
+.scrollbar-hide::-webkit-scrollbar {
+  display: none;
+}
+
+.list-item {
+  list-style: none;
+  padding: 0;
+  margin: 0;    
 }

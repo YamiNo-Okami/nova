@@ -1,14 +1,30 @@
-import { ChevronRight, PlusIcon } from "lucide-react";
+import { ChevronRight, PlusIcon, Trash2 } from "lucide-react";
+import { useState } from "react";
 
 type SidebarProps = {
-  collapse : boolean;
+  collapse: boolean;
   onClose: () => void;
 };
 
-export default function Sidebar({ collapse,onClose }: SidebarProps) {
+export default function Sidebar({ collapse, onClose }: SidebarProps) {
+  const [grids, setGrids] = useState<string[]>([
+    "Grid A",
+    "Grid B",
+    "Grid C",
+    "Grid D",
+  ]);
+
+  // TODO: If some data about grid is in local storage or backend, fetch that data here
+  // and use it to populate the grids list. Else, use the default grids above.
+
+  const onClickAdd = () => {
+    const newGridName = `Grid ${String.fromCharCode(65 + grids.length)}`;
+    setGrids([...grids, newGridName]);
+  };
+
   return (
     <div
-      className={`fixed top-4 left-4 z-50
+      className={`fixed top-4 left-4
           h-[calc(100vh-2rem)] w-72
           sidebar rounded-2xl shadow-2xl text-white border-5 
           transition-transform duration-300 ease-in-out ${!collapse ? "translate-x-0" : "-translate-x-[110%]"}`}
@@ -17,39 +33,60 @@ export default function Sidebar({ collapse,onClose }: SidebarProps) {
         <div className="pt-7" />
         <div className="text-3xl flex justify-center items-center pr-5">
           <img src="/logo.png" alt="Nova Logo" className="w-20 h-20" />
-          <p className="playfair-display">My Nova</p> 
-          </div>
+          <p className="playfair-display">My Nova</p>
+        </div>
 
         <hr className="w-full border-3 sidebar" />
 
         <div className="m-3 p-2">
           <div className="flex justify-between items-center pb-4 pt-4">
             <div className="text-3xl ">Grids</div>
-            <button className=" bg-blue-800 rounded-lg mr-4 hover:bg-blue-600">
+            <button
+              className=" bg-blue-800 rounded-lg mr-4 hover:bg-blue-600"
+              onClick={onClickAdd}
+            >
               <div className="m-2">
                 <PlusIcon />
               </div>
             </button>
           </div>
-          <div className=" bg-gray-800 p-2 mt-2 rounded-lg">
-            <ol>
-              <li>Grid A</li>
-              <li>Grid B</li>
-              <li>Grid C</li>
-              <li>Grid D</li>
-            </ol>
+          <div className="">
+            <div className=" list-none flex flex-col max-h-[50vh] overflow-y-auto panel panel-soft border-2 rounded-lg ms-2 me-2 scrollbar-hide">
+              {grids.map((gridName, index) => (
+                <div
+                  className="flex justify-between pt-2 pb-1 ps-2 pe-2  panel-hover hover:border-1  hover:rounded-xl"
+                  key={index}
+                >
+                  <div className="m-2">
+                    <li
+                      key={index}
+                      className="list-item rounded-md cursor-pointer"
+                    >
+                      {gridName}
+                    </li>
+                  </div>
+                  <div className="">
+                    <button className=" bg-red-600 rounded-lg mr-2 hover:bg-red-400">
+                      <div className="m-2">
+                        <Trash2/>
+                      </div>
+                    </button>
+                  </div>
+                </div>
+              ))}
+            </div>
           </div>
         </div>
       </div>
 
       <hr className="w-full  border-3 absolute bottom-25 sidebar" />
 
-      <div className="absolute bottom-4  p-4 pb-2">
+      <div className="absolute bottom-4 p-4 pb-2">
         <button
-          className="bg-gray-800 rounded-xl flex justify-center items-center"
+          className="panel hover:border-1    rounded-xl flex justify-center items-center"
           onClick={onClose}
         >
-          <div className="m-3">
+          <div className="m-3 ">
             <ChevronRight />
           </div>
         </button>

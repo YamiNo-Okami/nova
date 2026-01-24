@@ -1,6 +1,7 @@
 
 import { ChevronLeft } from "lucide-react";
 import Sidebar from "./Sidebar";
+import MainCanvas from "./MainCanvas";
 
 type SidebarProps = {
   collapse: boolean;
@@ -18,7 +19,7 @@ export default function Canvas({ collapse, onToggle }: SidebarProps) {
               <div className="float-left p-5">
                 <button
                   onClick={onToggle}
-                  className="bg-gray-800 rounded-xl flex justify-center items-center text-white "
+                  className="sidebar-white hover:border-1 rounded-xl flex justify-center items-center text-white "
                 >
                     <div className="m-3">
                   <ChevronLeft/>
@@ -28,7 +29,7 @@ export default function Canvas({ collapse, onToggle }: SidebarProps) {
 )}  
           </div>
           <div className="w-screen h-screen grid-dot flex items-center justify-center text-6xl">
-            Canvas
+            <MainCanvas/>
             </div>
         </div>
       </div>
