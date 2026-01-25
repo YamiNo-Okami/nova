@@ -1,5 +1,6 @@
 
 import { useRef, useState } from "react";
+import Card from "./Card";
 
 // TODO : Add logic for loading different grids
 
@@ -71,7 +72,9 @@ export default function MainCanvas() {
           backgroundImage: "radial-gradient(#222 1px, transparent 2px)",
           backgroundSize: "20px 20px",
         }}
-      />{" "}
+      >{" "}
+      <Card /> 
+      </div>
       {/* the dot grid */}
     </div>
   );

@@ -11,7 +11,7 @@ export default function Canvas({ collapse, onToggle }: SidebarProps) {
   return (
     <>
       <div className="fixed">
-        <div className=" w-screen h-screen grid-dot flex items-center justify-center  text-6xl">
+        <div className=" w-screen h-screen grid-dot flex items-center justify-center">
           <MainCanvas/>
         </div>
         <div className="">
@@ -21,7 +21,7 @@ export default function Canvas({ collapse, onToggle }: SidebarProps) {
               <div className="float-left p-5">
                 <button
                   onClick={onToggle}
-                  className="sidebar-white hover\:border-1 rounded-xl flex justify-center items-center text-white "
+                  className="sidebar-white hover:border rounded-xl flex justify-center items-center text-white "
                 >
                   <div className="m-3">
                     <ChevronLeft />
