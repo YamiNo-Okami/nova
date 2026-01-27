@@ -54,7 +54,7 @@ export default function Sidebar({ collapse, onClose }: SidebarProps) {
             <div className=" list-none flex flex-col max-h-[50vh] overflow-y-auto panel panel-soft border-2 rounded-lg ms-2 me-2 scrollbar-hide">
               {grids.map((gridName, index) => (
                 <div
-                  className="flex justify-between pt-2 pb-1 ps-2 pe-2  panel-hover hover:border-1  hover:rounded-xl"
+                  className="flex justify-between pt-2 pb-1 ps-2 pe-2  panel-hover hover:border  hover:rounded-xl"
                   key={index}
                 >
                   <div className="m-2">
@@ -83,7 +83,7 @@ export default function Sidebar({ collapse, onClose }: SidebarProps) {
 
       <div className="absolute bottom-4 p-4 pb-2">
         <button
-          className="panel hover:border-1    rounded-xl flex justify-center items-center"
+          className="panel hover:border    rounded-xl flex justify-center items-center"
           onClick={onClose}
         >
           <div className="m-3 ">
