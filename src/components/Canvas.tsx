@@ -11,7 +11,7 @@ export default function Canvas({ collapse, onToggle }: SidebarProps) {
   return (
     <>
       <div className="fixed">
-        <div className=" w-screen h-screen grid-dot flex items-center justify-center">
+        <div className=" w-screen h-screen grid-dot flex items-center justify-center ">
           <MainCanvas/>
         </div>
         <div className="">

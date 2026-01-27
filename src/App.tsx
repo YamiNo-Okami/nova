@@ -4,7 +4,7 @@ import './App.css'
 import Canvas from './components/Canvas'
 
 function App() {
-  const [collapse, setCollapse] = useState(false)
+  const [collapse, setCollapse] = useState(true)
 
 
 

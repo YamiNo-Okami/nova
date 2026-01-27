@@ -8,6 +8,7 @@ export type CardData = {
     id: string;
     x: number;
     y: number;
+    title:string;
     width: number;
     height: number;
     content: string;
