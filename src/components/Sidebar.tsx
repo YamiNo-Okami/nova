@@ -4,19 +4,30 @@ import { useState } from "react";
 type SidebarProps = {
   collapse: boolean;
   onClose: () => void;
-  grids?: [string,string,boolean][];
+  grids?: [string, string, boolean][];
   setActiveGrid?: (gridId: string) => void;
 };
 
-export default function Sidebar({ collapse, onClose, grids, setActiveGrid }: SidebarProps) {
-  const [gridsState, setGridsState] = useState<[string,string,boolean][]>(grids || []);
+export default function Sidebar({
+  collapse,
+  onClose,
+  grids,
+  setActiveGrid,
+}: SidebarProps) {
+  const [gridsState, setGridsState] = useState<[string, string, boolean][]>(
+    grids || [],
+  );
 
   // TODO: If some data about grid is in local storage or backend, fetch that data here
   // and use it to populate the grids list. Else, use the default grids above.
 
   const onClickAdd = () => {
     const gridId = `grid-${gridsState.length + 1}`;
-    const newGridName: [string, string, boolean] = [gridId, `Grid ${String.fromCharCode(65 + gridsState.length)}`, false];
+    const newGridName: [string, string, boolean] = [
+      gridId,
+      `Grid ${String.fromCharCode(65 + gridsState.length)}`,
+      false,
+    ];
     setGridsState([...gridsState, newGridName]);
   };
 
@@ -52,13 +63,12 @@ export default function Sidebar({ collapse, onClose, grids, setActiveGrid }: Sid
             <div className=" list-none flex flex-col max-h-[50vh] overflow-y-auto panel panel-soft border-2 rounded-lg ms-2 me-2 scrollbar-hide">
               {gridsState.map((gridName) => (
                 <div
-                key={gridName[0]}
-                onClick={()=>{
+                  key={gridName[0]}
+                  onClick={() => {
                     console.log("Setting active grid to:", gridName[0]);
-                    setActiveGrid?.(gridName[0]); 
-               
-                }}
-                className={`flex justify-between pt-2 pb-1 ps-2 pe-2  panel-hover 
+                    setActiveGrid?.(gridName[0]);
+                  }}
+                  className={`flex justify-between pt-2 pb-1 ps-2 pe-2  panel-hover 
                    {/*${gridName[2] ? "active" : ""}*/}
                   `}
                 >

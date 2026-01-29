@@ -1,14 +1,14 @@
 import React, { useEffect, useRef, useState } from "react";
 import Card from "./Card";
-import type { CardData , Grid } from "../types";
+import type { CardData, Grid } from "../types";
 
 // TODO : Add logic for loading different grids
 
 type props = {
-  data : Grid | null ;  
-}
+  data: Grid | null;
+};
 
-export default function MainCanvas({data}: props) {
+export default function MainCanvas({ data }: props) {
   // Canvas Logics
   const LIMITS = {
     minY: -2000, // how far up you allow
@@ -28,27 +28,27 @@ export default function MainCanvas({data}: props) {
 
   function onMouseMove(e: React.MouseEvent) {
     if (resizeCard) {
-  setCards((cards) =>
-    cards.map((card) =>
-      card.id === resizeCard
-        ? {
-            ...card,
-            width: Math.max(
-              150,
-              resizeOffset.current.w +
-                (e.clientX - resizeOffset.current.x) / scale
-            ),
-            height: Math.max(
-              200,
-              resizeOffset.current.h +
-                (e.clientY - resizeOffset.current.y) / scale
-            ),
-          }
-        : card
-    )
-  );
-  return;
-}
+      setCards((cards) =>
+        cards.map((card) =>
+          card.id === resizeCard
+            ? {
+                ...card,
+                width: Math.max(
+                  150,
+                  resizeOffset.current.w +
+                    (e.clientX - resizeOffset.current.x) / scale,
+                ),
+                height: Math.max(
+                  200,
+                  resizeOffset.current.h +
+                    (e.clientY - resizeOffset.current.y) / scale,
+                ),
+              }
+            : card,
+        ),
+      );
+      return;
+    }
 
     if (draggingCard) {
       setCards((cards) =>
@@ -124,19 +124,18 @@ export default function MainCanvas({data}: props) {
       y: e.clientY - card.y * scale - offSet.y,
     };
     console.log(dragOffset.current);
-    
   }
   function onCardResizeMouseDown(e: React.MouseEvent, card: CardData) {
-  e.stopPropagation();
-  setResizeCard(card.id);
+    e.stopPropagation();
+    setResizeCard(card.id);
 
-  resizeOffset.current = {
-    x: e.clientX,
-    y: e.clientY,
-    w: card.width,
-    h: card.height,
-  };
-}
+    resizeOffset.current = {
+      x: e.clientX,
+      y: e.clientY,
+      w: card.width,
+      h: card.height,
+    };
+  }
 
   function handleSave(updatedCard: CardData) {
     setCards((cards) =>
@@ -146,7 +145,7 @@ export default function MainCanvas({data}: props) {
 
   return (
     <div
-    key={data ? data.id : "no-data"}
+      key={data ? data.id : "no-data"}
       ref={containerRef}
       onMouseDown={onMouseDown}
       onMouseMove={onMouseMove}

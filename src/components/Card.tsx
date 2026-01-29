@@ -41,7 +41,9 @@ export default function Card({
   return (
     <>
       <div
-        onMouseDown={(e)=>{e.stopPropagation();}}
+        onMouseDown={(e) => {
+          e.stopPropagation();
+        }}
         style={{
           width: card.width,
           height: card.height,
@@ -56,8 +58,7 @@ export default function Card({
       >
         {/*  Header Section  */}
         <div
-          
-          onMouseDown={(!editing) ? (e) => onMouseDown(e, card) : ()=>{}}
+          onMouseDown={!editing ? (e) => onMouseDown(e, card) : () => {}}
           style={{
             backgroundColor: "rgba(0,0,0,0.7)",
             cursor: isPanning ? "move" : "pointer",
@@ -67,7 +68,6 @@ export default function Card({
           <div className="text-2xl">
             {editing ? (
               <input
-                
                 className="input-box"
                 onChange={(e) => handleUpdatedTitle(e.target.value)}
                 style={{
@@ -99,13 +99,14 @@ export default function Card({
         <hr />
 
         {/*  Content  dynamic later */}
-        <div className="card-body"> {/* Content Section */}
+        <div className="card-body">
+          {" "}
+          {/* Content Section */}
           {/*scrollbar-hide */}
           <div className="p-4 w-100 ">
             {/* Markdown content later */}
             {editing ? (
               <textarea
-                
                 className="input-box"
                 defaultValue={card.content}
                 onChange={(e) => handleUpdatedContent(e.target.value)}
@@ -116,30 +117,27 @@ export default function Card({
           </div>
         </div>
 
-
         {/* buttons edit save */}
-        <div 
-        
-        onMouseDown={(!editing) ?  (e) => onResizeMouseDown(e, card) : ()=>{}}
-        style={{
-          cursor: isResizeing ? "nwse-resize" : "pointer",
-        }}
-        className=" bottom-0 bg-black w-full rounded-b-lg">
+        <div
+          onMouseDown={!editing ? (e) => onResizeMouseDown(e, card) : () => {}}
+          style={{
+            cursor: isResizeing ? "nwse-resize" : "pointer",
+          }}
+          className=" bottom-0 bg-black w-full rounded-b-lg"
+        >
           <hr />
-          <div className="bottom-0 w-full flex justify-between p-3">   {/* Footer section*/}
-            
-              <button
-                onClick={() => {
-                  setEditing(!editing);
-                  if (!editing) handleSave();
-                }}
-                className=" p-1 border border-white hover:bg-white hover:text-black rounded"
-              >
-                {editing ? "Save" : "Edit"}
-              </button>
-            
-              
-          
+          <div className="bottom-0 w-full flex justify-between p-3">
+            {" "}
+            {/* Footer section*/}
+            <button
+              onClick={() => {
+                setEditing(!editing);
+                if (!editing) handleSave();
+              }}
+              className=" p-1 border border-white hover:bg-white hover:text-black rounded"
+            >
+              {editing ? "Save" : "Edit"}
+            </button>
           </div>
         </div>
       </div>{" "}
