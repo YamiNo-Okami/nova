@@ -1,6 +1,7 @@
 export type Grid = {
     id: string;
     name: string;
+    active: boolean;
     cards : CardData[];
 }
 
@@ -19,6 +20,7 @@ export type CardData = {
 export const gridsData: Grid[] = [
   {
     id: "grid-1",
+    active: true,
     name: "Ideas & Brainstorm",
     cards: [
       {
@@ -64,6 +66,7 @@ Build a visual workspace app
 
   {
     id: "grid-2",
+    active: false,
     name: "Development Notes",
     cards: [
       {
@@ -111,6 +114,7 @@ State lifted to parent`
 
   {
     id: "grid-3",
+    active: false,
     name: "Personal Notes",
     cards: [
       {

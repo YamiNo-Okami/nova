@@ -55,7 +55,11 @@ body {
 
 .panel-hover:hover {
   background: var(--color-hover-bg);
-  border-color: whitesmoke;
+  border: 1px solid whitesmoke;
+  border-radius: 10px;
+}
+.active{
+  background: var(--color-hover-bg);
 }
 
 .grid-dot {

@@ -4,22 +4,20 @@ import { useState } from "react";
 type SidebarProps = {
   collapse: boolean;
   onClose: () => void;
+  grids?: [string,string,boolean][];
+  setActiveGrid?: (gridId: string) => void;
 };
 
-export default function Sidebar({ collapse, onClose }: SidebarProps) {
-  const [grids, setGrids] = useState<string[]>([
-    "Grid A",
-    "Grid B",
-    "Grid C",
-    "Grid D",
-  ]);
+export default function Sidebar({ collapse, onClose, grids, setActiveGrid }: SidebarProps) {
+  const [gridsState, setGridsState] = useState<[string,string,boolean][]>(grids || []);
 
   // TODO: If some data about grid is in local storage or backend, fetch that data here
   // and use it to populate the grids list. Else, use the default grids above.
 
   const onClickAdd = () => {
-    const newGridName = `Grid ${String.fromCharCode(65 + grids.length)}`;
-    setGrids([...grids, newGridName]);
+    const gridId = `grid-${gridsState.length + 1}`;
+    const newGridName: [string, string, boolean] = [gridId, `Grid ${String.fromCharCode(65 + gridsState.length)}`, false];
+    setGridsState([...gridsState, newGridName]);
   };
 
   return (
@@ -52,26 +50,33 @@ export default function Sidebar({ collapse, onClose }: SidebarProps) {
           </div>
           <div className="">
             <div className=" list-none flex flex-col max-h-[50vh] overflow-y-auto panel panel-soft border-2 rounded-lg ms-2 me-2 scrollbar-hide">
-              {grids.map((gridName, index) => (
+              {gridsState.map((gridName) => (
                 <div
-                  className="flex justify-between pt-2 pb-1 ps-2 pe-2  panel-hover hover:border  hover:rounded-xl"
-                  key={index}
+                key={gridName[0]}
+                onClick={()=>{
+                    console.log("Setting active grid to:", gridName[0]);
+                    setActiveGrid?.(gridName[0]); 
+               
+                }}
+                className={`flex justify-between pt-2 pb-1 ps-2 pe-2  panel-hover 
+                   {/*${gridName[2] ? "active" : ""}*/}
+                  `}
                 >
                   <div className="m-2">
                     <li
-                      key={index}
+                      key={gridName[0]}
                       className="list-item rounded-md cursor-pointer"
                     >
-                      {gridName}
+                      {gridName[1]}
                     </li>
                   </div>
-                  <div className="">
+                  {/* <div className="">
                     <button className=" bg-red-600 rounded-lg mr-2 hover:bg-red-400">
                       <div className="m-2">
                         <Trash2 />
                       </div>
                     </button>
-                  </div>
+                  </div> */}
                 </div>
               ))}
             </div>
