@@ -68,7 +68,7 @@ export default function Sidebar({ collapse, onClose }: SidebarProps) {
                   <div className="">
                     <button className=" bg-red-600 rounded-lg mr-2 hover:bg-red-400">
                       <div className="m-2">
-                        <Trash2/>
+                        <Trash2 />
                       </div>
                     </button>
                   </div>

@@ -1,6 +1,8 @@
 import { ChevronLeft } from "lucide-react";
 import Sidebar from "./Sidebar";
 import MainCanvas from "./MainCanvas";
+import { gridsData } from "../types";
+import { useState } from "react";
 
 type SidebarProps = {
   collapse: boolean;
@@ -8,14 +10,31 @@ type SidebarProps = {
 };
 
 export default function Canvas({ collapse, onToggle }: SidebarProps) {
+
+  const [datas, setDatas] = useState(gridsData);
+
+  function getGridsIdandNames() : [string,string][] {
+    return datas.map((data) => [data.id, data.name]);
+  }
+
+  const [grids, setGrids] = useState<[string,string][]>(getGridsIdandNames());
+
+
   return (
     <>
       <div className="fixed">
         <div className=" w-screen h-screen grid-dot flex items-center justify-center ">
-          <MainCanvas/>
+          {/* { 
+          datas.map((data)=>{
+            return  */}
+            
+            <MainCanvas data={datas[0]} />
+          {/* })
+            
+            } */}
         </div>
         <div className="">
-          {!collapse && <Sidebar collapse={collapse} onClose={onToggle} />}
+          {!collapse && <Sidebar collapse={collapse} onClose={onToggle}  />}
           <div className="absolute bottom-6 left-4">
             {collapse && (
               <div className="float-left p-5">
@@ -31,7 +50,6 @@ export default function Canvas({ collapse, onToggle }: SidebarProps) {
             )}
           </div>
         </div>
-        
       </div>
     </>
   );
