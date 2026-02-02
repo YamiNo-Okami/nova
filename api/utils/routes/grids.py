@@ -44,6 +44,8 @@ async def create_grid(grid: GridRequest, current_user: User = Depends(get_curren
     return {"message": "Grid created successfully", "grid_id": str(new_grid.id)}
 
 
+
+#TODO : Make sure all crads associated with the grid are also deleted 
 @grids_router.delete("/{grid_id}")
 async def delete_grid(grid_id:  PydanticObjectId, current_user: User = Depends(get_current_user)):
     grid = await Grid.get(grid_id)

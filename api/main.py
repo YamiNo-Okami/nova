@@ -3,6 +3,8 @@ from contextlib import asynccontextmanager
 
 from utils.routes.auth import auth_router
 from utils.routes.grids import grids_router
+from utils.routes.cards import cards_router
+
 from utils.database import init_db
 
 
@@ -18,6 +20,7 @@ app = FastAPI(title="Nova CRUD API", lifespan=lifespan)
 
 app.include_router(auth_router)
 app.include_router(grids_router)
+app.include_router(cards_router)
 
 @app.get("/")
 async def root():

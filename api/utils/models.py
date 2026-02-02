@@ -29,3 +29,4 @@ class CardData(Document):
         indexes = ["grid_id"]
 
     
+## TODO : Make cards pseudo delete with an is_deleted field
