@@ -1,22 +1,20 @@
 from beanie import Document
-from pydantic import EmailStr, Field
-from typing import List
+from pydantic import EmailStr
 
 class User(Document):
     username : str
     email : EmailStr
     hashed_password : str
-    grids : List[str] = Field(default_factory=list) or []  # List of Grid IDs
     
     class Settings:
         name = "users"
     
 class Grid(Document):
     name : str
-    active : bool
-    cards : List[str] = Field(default_factory=list) or []  # List of CardData IDs
+    user_id : str   
     class Settings:
         name = "grids"
+        indexes = ["user_id"]
 
 class CardData(Document):
     title : str
@@ -25,7 +23,9 @@ class CardData(Document):
     y: int
     width: int
     height: int
+    grid_id : str
     class Settings:
         name = "cards"
+        indexes = ["grid_id"]
 
     

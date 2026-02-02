@@ -61,6 +61,6 @@ async def login_user(user: LoginRequest):
         raise HTTPException(status_code=401, detail="Invalid username or password")
     
     # Here you would normally generate a JWT or session token
-    access_token = create_access_token(data={"sub": existing_user.username, "id": str(existing_user.id)})
+    access_token = create_access_token(data={"username": existing_user.username, "sub": str(existing_user.id)})
     
     return {"access_token": access_token, "token_type": "Bearer"}
