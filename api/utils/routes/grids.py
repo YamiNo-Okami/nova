@@ -1,7 +1,6 @@
 from fastapi import APIRouter, Depends, HTTPException
-from utils.models import User, Grid
+from utils.models import User, Grid, CardData
 from pydantic import BaseModel
-from utils.jwt import decode_access_token
 from utils.deps import get_current_user
 from beanie import PydanticObjectId
 
@@ -13,6 +12,9 @@ grids_router = APIRouter(
 
 class GridRequest(BaseModel):
     name : str
+
+class GridDeleteRequest(BaseModel):
+    delete_cards : str = "false"
 
 class GridResponse:
     id : str
@@ -44,13 +46,21 @@ async def create_grid(grid: GridRequest, current_user: User = Depends(get_curren
     return {"message": "Grid created successfully", "grid_id": str(new_grid.id)}
 
 
-
-#TODO : Make sure all crads associated with the grid are also deleted 
 @grids_router.delete("/{grid_id}")
 async def delete_grid(grid_id:  PydanticObjectId, current_user: User = Depends(get_current_user)):
     grid = await Grid.get(grid_id)
-    if not grid or grid.user_id != str(current_user.id):
+    
+    cards = await CardData.find(CardData.grid_id == str(grid_id)).to_list()
+    
+    # if grid_delete_request.delete_cards.lower() == "true":
+    #     for card in cards:
+    #         await card.delete()
+        
+    if not grid or grid.user_id != str(current_user.id) :
         raise HTTPException(status_code=404, detail="Grid not found")
+    
+    if len(cards) > 0:
+        raise HTTPException(status_code=400, detail="Cannot delete grid with existing cards")
     
     await grid.delete()
     return {"message": "Grid deleted successfully"}
