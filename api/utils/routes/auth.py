@@ -63,4 +63,4 @@ async def login_user(user: LoginRequest):
     # Here you would normally generate a JWT or session token
     access_token = create_access_token(data={"username": existing_user.username, "sub": str(existing_user.id)})
     
-    return {"access_token": access_token, "token_type": "Bearer"}
+    return {"access_token": access_token, "token_type": "Bearer", "username": existing_user.username}

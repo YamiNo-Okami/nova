@@ -1,5 +1,6 @@
-import { ChevronRight, PlusIcon, Trash2 } from "lucide-react";
+import { ChevronRight, PlusIcon, Trash2, LogOut } from "lucide-react";
 import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 
 type SidebarProps = {
   collapse: boolean;
@@ -14,9 +15,11 @@ export default function Sidebar({
   grids,
   setActiveGrid,
 }: SidebarProps) {
+  const [username, setUsername] = useState(localStorage.getItem('username') || 'User');
   const [gridsState, setGridsState] = useState<[string, string, boolean][]>(
     grids || [],
   );
+  const navigate = useNavigate();
 
   // TODO: If some data about grid is in local storage or backend, fetch that data here
   // and use it to populate the grids list. Else, use the default grids above.
@@ -31,6 +34,12 @@ export default function Sidebar({
     setGridsState([...gridsState, newGridName]);
   };
 
+  const handleLogout = () => {
+    localStorage.removeItem('access_token');
+    localStorage.removeItem('username');
+    navigate('/login');
+  };
+
   return (
     <div
       className={`fixed top-4 left-4
@@ -39,14 +48,18 @@ export default function Sidebar({
           transition-transform duration-300 ease-in-out ${!collapse ? "translate-x-0" : "-translate-x-[110%]"}`}
     >
       <div>
-        <div className="pt-7" />
         <div className="text-3xl flex justify-center items-center pr-5">
           <img src="/logo.png" alt="Nova Logo" className="w-20 h-20" />
           <p className="playfair-display">My Nova</p>
         </div>
 
-        <hr className="w-full border-3 sidebar" />
 
+        <div className="rounded-full h-10 m-2 ms-4  ">
+          <div className="flex justify-center text-2xl mb-1 mt-1">
+            Hi {username}!
+          </div>
+          </div>
+        <hr className="w-full border-3 sidebar" />
         <div className="m-3 p-2">
           <div className="flex justify-between items-center pb-4 pt-4">
             <div className="text-3xl ">Grids</div>
@@ -93,10 +106,11 @@ export default function Sidebar({
           </div>
         </div>
       </div>
+      
 
       <hr className="w-full  border-3 absolute bottom-25 sidebar" />
 
-      <div className="absolute bottom-4 p-4 pb-2">
+      <div className="absolute bottom-4 p-4 pb-2 flex items-center w-full">
         <button
           className="panel hover:border    rounded-xl flex justify-center items-center"
           onClick={onClose}
@@ -104,7 +118,22 @@ export default function Sidebar({
           <div className="m-3 ">
             <ChevronRight />
           </div>
+          
         </button>
+        {/* create a logout button */}
+        <button
+          className="panel hover:border rounded-xl flex justify-center items-center ml-3 flex-1"
+          onClick={handleLogout}
+          style={{ background: 'var(--color-danger)' }}
+          onMouseEnter={(e) => e.currentTarget.style.opacity = '0.8'}
+          onMouseLeave={(e) => e.currentTarget.style.opacity = '1'}
+        >
+          <div className="m-3 flex items-center gap-2">
+            <LogOut size={20} />
+            <span className="font-medium">Logout</span>
+          </div>
+        </button>
+        
       </div>
     </div>
   );
